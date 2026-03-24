@@ -1,4 +1,14 @@
-exports.handler = async function () {
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': 'https://meals.gthompson.me',
+  'Access-Control-Allow-Methods': 'GET',
+  'Content-Type': 'application/json'
+};
+
+exports.handler = async function (event) {
+  if (event.httpMethod === 'OPTIONS') {
+    return { statusCode: 204, headers: CORS_HEADERS, body: '' };
+  }
+
   const token = process.env.AIRTABLE_TOKEN;
   const base  = process.env.AIRTABLE_BASE;
   const table = process.env.AIRTABLE_TABLE;
@@ -6,6 +16,7 @@ exports.handler = async function () {
   if (!token || !base || !table) {
     return {
       statusCode: 500,
+      headers: CORS_HEADERS,
       body: JSON.stringify({ error: 'Airtable environment variables are not configured.' })
     };
   }
@@ -14,12 +25,13 @@ exports.handler = async function () {
     const records = await fetchAllRecords(token, base, table);
     return {
       statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: CORS_HEADERS,
       body: JSON.stringify({ records })
     };
   } catch (err) {
     return {
       statusCode: 502,
+      headers: CORS_HEADERS,
       body: JSON.stringify({ error: err.message })
     };
   }

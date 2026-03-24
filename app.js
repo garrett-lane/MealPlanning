@@ -15,7 +15,7 @@ async function syncFromAirtable() {
   showSyncStatus('loading', 'Syncing from Airtable…');
 
   try {
-    const res = await fetch('/api/meals');
+    const res = await fetch('https://gtmealprep.netlify.app/api/meals');
     if (!res.ok) {
       const body = await res.json().catch(() => ({}));
       throw new Error(body?.error || `HTTP ${res.status}`);
