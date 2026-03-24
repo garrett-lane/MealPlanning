@@ -2,19 +2,19 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --primary: #0077b6;
-  --primary-dark: #005a8a;
-  --bg: #f0f8ff;
-  --card-bg: #fff;
-  --text: #1a2e3b;
-  --muted: #6b8a9a;
-  --border: #c5dded;
-  --tag-bg: #d4eedf;
-  --tag-color: #1a6b3a;
-  --danger: #d9534f;
-  --success: #2a9d8f;
+  --primary: #38bdf8;
+  --primary-dark: #0ea5e9;
+  --bg: #0f172a;
+  --card-bg: #1e293b;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --border: #334155;
+  --tag-bg: #164e3a;
+  --tag-color: #4ade80;
+  --danger: #f87171;
+  --success: #34d399;
   --radius: 12px;
-  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  --shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
 
 body {
@@ -26,13 +26,14 @@ body {
 
 /* ---- Header ---- */
 header {
-  background: var(--primary);
-  color: #fff;
+  background: #263548;
+  color: var(--text);
   padding: 24px 32px;
   text-align: center;
+  border-bottom: 3px solid var(--primary);
 }
-header h1 { font-size: 2rem; font-weight: 700; }
-header p { font-size: 0.95rem; opacity: 0.85; margin-top: 4px; }
+header h1 { font-size: 2rem; font-weight: 700; color: var(--primary); }
+header p { font-size: 0.95rem; color: var(--muted); margin-top: 4px; }
 
 /* ---- Main Layout ---- */
 main {
@@ -62,7 +63,7 @@ main {
 
 
 .secondary-btn {
-  background: #fff;
+  background: transparent;
   color: var(--primary);
   border: 2px solid var(--primary);
   padding: 9px 20px;
@@ -73,7 +74,7 @@ main {
   transition: all 0.2s;
   margin-top: 16px;
 }
-.secondary-btn:hover { background: var(--primary); color: #fff; }
+.secondary-btn:hover { background: var(--primary); color: var(--bg); }
 
 /* ---- Weekly Planner ---- */
 #week-grid {
@@ -86,7 +87,7 @@ main {
   border-radius: 10px;
   padding: 8px;
   min-height: 100px;
-  background: #f5fbff;
+  background: #0f172a;
   transition: background 0.2s;
 }
 .day-slot.drag-over { background: #d4eedf; border-color: var(--primary); }
@@ -132,7 +133,8 @@ main {
   border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 0.95rem;
-  background: #f5fbff;
+  background: #0f172a;
+  color: var(--text);
 }
 .search-row input:focus { outline: none; border-color: var(--primary); }
 
@@ -147,7 +149,7 @@ main {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 16px;
-  background: #f5fbff;
+  background: #0f172a;
   position: relative;
   transition: box-shadow 0.2s, transform 0.15s;
   cursor: grab;
@@ -178,7 +180,8 @@ main {
   padding: 5px 12px;
   border-radius: 6px;
   border: 1px solid var(--border);
-  background: #fff;
+  background: #1e293b;
+  color: var(--text);
   cursor: pointer;
   transition: all 0.15s;
   font-weight: 500;
@@ -207,7 +210,7 @@ main {
 .hidden { display: none !important; }
 
 #modal, #detail-modal {
-  background: #fff;
+  background: #1e293b;
   border-radius: var(--radius);
   width: 90%;
   max-width: 500px;
@@ -224,7 +227,7 @@ main {
   justify-content: space-between;
   padding: 18px 24px;
   border-bottom: 1px solid var(--border);
-  background: var(--bg);
+  background: #0f172a;
 }
 #modal-header h2, #detail-header h2 {
   font-size: 1.15rem;
@@ -252,7 +255,7 @@ main {
 #modal-footer {
   padding: 14px 24px;
   border-top: 1px solid var(--border);
-  background: var(--bg);
+  background: #0f172a;
 }
 
 #copy-list-btn {
@@ -304,8 +307,8 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #d4eedf;
-  color: #1a6b3a;
+  background: #064e3b;
+  color: #34d399;
   text-decoration: none;
   padding: 9px 16px;
   border-radius: 8px;
@@ -313,12 +316,13 @@ main {
   font-weight: 600;
   transition: background 0.15s;
 }
-.recipe-link-block a:hover { background: #b8e0ca; }
+.recipe-link-block a:hover { background: #065f46; }
 
 /* Plan day picker */
 .day-picker { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .day-btn {
-  background: #fff;
+  background: #0f172a;
+  color: var(--text);
   border: 2px solid var(--border);
   border-radius: 8px;
   padding: 7px 14px;
@@ -343,7 +347,7 @@ main {
 .header-btns { display: flex; gap: 8px; align-items: center; }
 
 .sync-btn {
-  background: #fff;
+  background: transparent;
   color: var(--primary);
   border: 2px solid var(--primary);
   padding: 6px 14px;
@@ -353,10 +357,10 @@ main {
   cursor: pointer;
   transition: all 0.2s;
 }
-.sync-btn:hover { background: var(--primary); color: #fff; }
+.sync-btn:hover { background: var(--primary); color: var(--bg); }
 
 .random-btn {
-  background: #fff;
+  background: transparent;
   color: var(--success);
   border: 2px solid var(--success);
   padding: 6px 14px;
@@ -366,7 +370,7 @@ main {
   cursor: pointer;
   transition: all 0.2s;
 }
-.random-btn:hover { background: var(--success); color: #fff; }
+.random-btn:hover { background: var(--success); color: var(--bg); }
 
 /* ---- Sync status ---- */
 .sync-status {
@@ -375,9 +379,9 @@ main {
   border-radius: 8px;
   margin-bottom: 10px;
 }
-.sync-loading { background: #fff8e1; color: #795900; }
-.sync-success { background: #e8f5e9; color: #2e7d32; }
-.sync-error   { background: #fdecea; color: #c62828; }
+.sync-loading { background: #2d2200; color: #fcd34d; }
+.sync-success { background: #064e3b; color: #34d399; }
+.sync-error   { background: #450a0a; color: #f87171; }
 
 /* ---- Type filter ---- */
 .search-row {
@@ -389,7 +393,8 @@ main {
   border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 0.95rem;
-  background: #f5fbff;
+  background: #0f172a;
+  color: var(--text);
   cursor: pointer;
 }
 .search-row select:focus { outline: none; border-color: var(--primary); }
@@ -405,9 +410,9 @@ main {
   border-radius: 20px;
   margin-bottom: 8px;
 }
-.type-entree { background: #dbeeff; color: #00538a; }
-.type-side   { background: #d4eedf; color: #1a6b3a; }
-.type-snack  { background: #d4f0ee; color: #1a6b65; }
+.type-entree { background: #0c2a4a; color: #38bdf8; }
+.type-side   { background: #064e3b; color: #34d399; }
+.type-snack  { background: #134e4a; color: #2dd4bf; }
 
 /* Responsive */
 @media (max-width: 700px) {
