@@ -46,6 +46,7 @@ async function syncFromAirtable() {
     meals = [...synced, ...localOnly];
     save();
 
+    renderTypeFilter();
     renderLibrary();
     showSyncStatus('success', `Synced ${synced.length} meal${synced.length !== 1 ? 's' : ''} from Airtable.`);
   } catch (err) {
@@ -151,6 +152,14 @@ document.querySelectorAll('.day-slot').forEach(slot => {
 });
 
 // ---- Search & Filter ----
+function renderTypeFilter() {
+  const select = document.getElementById('type-filter');
+  const current = select.value;
+  const types = [...new Set(meals.map(m => m.mealType).filter(Boolean))].sort();
+  select.innerHTML = '<option value="">All types</option>' +
+    types.map(t => `<option value="${t}"${t === current ? ' selected' : ''}>${t}</option>`).join('');
+}
+
 document.getElementById('search-input').addEventListener('input', renderLibrary);
 document.getElementById('type-filter').addEventListener('change', renderLibrary);
 
@@ -310,5 +319,6 @@ function escHtml(str) {
 }
 
 // ---- Init ----
+renderTypeFilter();
 renderLibrary();
 renderWeekPlan();
