@@ -340,6 +340,8 @@ main {
 }
 .library-header h2 { margin: 0; border: none; padding: 0; }
 
+.header-btns { display: flex; gap: 8px; align-items: center; }
+
 .sync-btn {
   background: #fff;
   color: var(--primary);
@@ -352,6 +354,19 @@ main {
   transition: all 0.2s;
 }
 .sync-btn:hover { background: var(--primary); color: #fff; }
+
+.random-btn {
+  background: #fff;
+  color: var(--success);
+  border: 2px solid var(--success);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.random-btn:hover { background: var(--success); color: #fff; }
 
 /* ---- Sync status ---- */
 .sync-status {

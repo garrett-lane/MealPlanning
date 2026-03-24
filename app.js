@@ -73,7 +73,7 @@ function renderLibrary() {
     const matchesSearch =
       m.name.toLowerCase().includes(searchVal) ||
       (m.tags || []).some(t => t.toLowerCase().includes(searchVal));
-    const matchesType = !typeVal || m.mealType === typeVal;
+    const matchesType = !typeVal || m.mealType.toLowerCase() === typeVal.toLowerCase();
     return matchesSearch && matchesType;
   });
 
@@ -277,6 +277,19 @@ document.getElementById('copy-list-btn').addEventListener('click', () => {
     setTimeout(() => btn.textContent = '📋 Copy to Clipboard', 2000);
   });
 });
+
+// ---- Random Entree ----
+function randomEntree() {
+  const entrees = meals.filter(m => m.mealType.toLowerCase().includes('entre'));
+  if (entrees.length === 0) {
+    alert('No entrees found! Make sure your meals are synced from Airtable.');
+    return;
+  }
+  const meal = entrees[Math.floor(Math.random() * entrees.length)];
+  showIngredients(meal.id);
+}
+
+document.getElementById('random-btn').addEventListener('click', randomEntree);
 
 // ---- Utility ----
 function escHtml(str) {
