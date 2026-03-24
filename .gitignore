@@ -1,0 +1,14 @@
+# Never commit credentials or local config
+config.js
+config.local.js
+.env
+.env.local
+.env*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/

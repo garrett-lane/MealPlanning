@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Cooking Planner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>🍽️ My Cooking Planner</h1>
+    <p>Save meals, view ingredients, and find recipes</p>
+  </header>
+
+  <main>
+
+    <!-- Meal Plan / Weekly Planner -->
+    <section class="card" id="planner-section">
+      <h2>Weekly Meal Plan</h2>
+      <div id="week-grid">
+        <div class="day-slot" data-day="Monday"><span class="day-label">Mon</span><div class="day-meals" id="day-Monday"></div></div>
+        <div class="day-slot" data-day="Tuesday"><span class="day-label">Tue</span><div class="day-meals" id="day-Tuesday"></div></div>
+        <div class="day-slot" data-day="Wednesday"><span class="day-label">Wed</span><div class="day-meals" id="day-Wednesday"></div></div>
+        <div class="day-slot" data-day="Thursday"><span class="day-label">Thu</span><div class="day-meals" id="day-Thursday"></div></div>
+        <div class="day-slot" data-day="Friday"><span class="day-label">Fri</span><div class="day-meals" id="day-Friday"></div></div>
+        <div class="day-slot" data-day="Saturday"><span class="day-label">Sat</span><div class="day-meals" id="day-Saturday"></div></div>
+        <div class="day-slot" data-day="Sunday"><span class="day-label">Sun</span><div class="day-meals" id="day-Sunday"></div></div>
+      </div>
+      <button id="generate-list-btn" class="secondary-btn">📋 Generate Shopping List</button>
+    </section>
+
+    <!-- Saved Meals Library -->
+    <section class="card" id="library-section">
+      <div class="library-header">
+        <h2>My Meals</h2>
+        <button id="sync-btn" class="sync-btn" title="Sync from Airtable">🔄 Sync from Airtable</button>
+      </div>
+      <div id="sync-status"></div>
+      <div class="search-row">
+        <input type="text" id="search-input" placeholder="Search meals or tags..." />
+        <select id="type-filter">
+          <option value="">All types</option>
+          <option value="Entree">Entree</option>
+          <option value="Side">Side</option>
+          <option value="Snack">Snack</option>
+        </select>
+      </div>
+      <div id="meal-library"></div>
+    </section>
+
+  </main>
+
+  <!-- Shopping List Modal -->
+  <div id="modal-overlay" class="hidden">
+    <div id="modal">
+      <div id="modal-header">
+        <h2>🛒 Shopping List</h2>
+        <button id="modal-close">✕</button>
+      </div>
+      <div id="modal-body"></div>
+      <div id="modal-footer">
+        <button id="copy-list-btn">📋 Copy to Clipboard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ingredients / Recipe Detail Modal -->
+  <div id="detail-overlay" class="hidden">
+    <div id="detail-modal">
+      <div id="detail-header">
+        <h2 id="detail-title"></h2>
+        <button id="detail-close">✕</button>
+      </div>
+      <div id="detail-body"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
