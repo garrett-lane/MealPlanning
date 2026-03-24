@@ -278,6 +278,15 @@ document.getElementById('copy-list-btn').addEventListener('click', () => {
   });
 });
 
+// ---- Clear Plan ----
+document.getElementById('clear-plan-btn').addEventListener('click', () => {
+  if (!DAYS.some(d => (weekPlan[d] || []).length > 0)) return;
+  if (!confirm('Clear the entire week plan?')) return;
+  weekPlan = {};
+  save();
+  renderWeekPlan();
+});
+
 // ---- Random Entree ----
 function randomEntree() {
   const entrees = meals.filter(m => m.mealType.toLowerCase().includes('entre'));
