@@ -434,7 +434,7 @@ main {
   border-radius: 20px;
   margin-bottom: 8px;
 }
-.type-entree { background: #0c2a4a; color: #38bdf8; }
+.type-entree, .type-entre { background: #0c2a4a; color: #38bdf8; }
 .type-side   { background: #064e3b; color: #34d399; }
 .type-snack  { background: #134e4a; color: #2dd4bf; }
 

@@ -36,8 +36,8 @@ async function syncFromAirtable() {
         name: f['Meal Name'] || '(Unnamed)',
         ingredients,
         recipeUrl: f['recipe link'] || '',
-        tags: f['meal type'] ? [f['meal type']] : [],
-        mealType: f['meal type'] || ''
+        tags: f['Meal Type'] ? [f['Meal Type']] : [],
+        mealType: f['Meal Type'] || ''
       };
     });
 
@@ -74,7 +74,7 @@ function renderLibrary() {
     const matchesSearch =
       m.name.toLowerCase().includes(searchVal) ||
       (m.tags || []).some(t => t.toLowerCase().includes(searchVal));
-    const matchesType = !typeVal || m.mealType.toLowerCase() === typeVal.toLowerCase();
+    const matchesType = !typeVal || m.mealType === typeVal;
     return matchesSearch && matchesType;
   });
 
