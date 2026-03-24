@@ -2,17 +2,17 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --primary: #e07b39;
-  --primary-dark: #c4612a;
-  --bg: #fdf6ee;
+  --primary: #0077b6;
+  --primary-dark: #005a8a;
+  --bg: #f0f8ff;
   --card-bg: #fff;
-  --text: #2d2d2d;
-  --muted: #888;
-  --border: #e8ddd0;
-  --tag-bg: #fde8d0;
-  --tag-color: #a04820;
+  --text: #1a2e3b;
+  --muted: #6b8a9a;
+  --border: #c5dded;
+  --tag-bg: #d4eedf;
+  --tag-color: #1a6b3a;
   --danger: #d9534f;
-  --success: #4caf50;
+  --success: #2a9d8f;
   --radius: 12px;
   --shadow: 0 2px 12px rgba(0,0,0,0.08);
 }
@@ -86,10 +86,10 @@ main {
   border-radius: 10px;
   padding: 8px;
   min-height: 100px;
-  background: #fdfaf7;
+  background: #f5fbff;
   transition: background 0.2s;
 }
-.day-slot.drag-over { background: #fde8d0; border-color: var(--primary); }
+.day-slot.drag-over { background: #d4eedf; border-color: var(--primary); }
 .day-label {
   font-size: 0.8rem;
   font-weight: 700;
@@ -132,7 +132,7 @@ main {
   border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 0.95rem;
-  background: #fdfaf7;
+  background: #f5fbff;
 }
 .search-row input:focus { outline: none; border-color: var(--primary); }
 
@@ -147,7 +147,7 @@ main {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 16px;
-  background: #fdfaf7;
+  background: #f5fbff;
   position: relative;
   transition: box-shadow 0.2s, transform 0.15s;
   cursor: grab;
@@ -304,8 +304,8 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #e8f0fe;
-  color: #1a56db;
+  background: #d4eedf;
+  color: #1a6b3a;
   text-decoration: none;
   padding: 9px 16px;
   border-radius: 8px;
@@ -313,7 +313,7 @@ main {
   font-weight: 600;
   transition: background 0.15s;
 }
-.recipe-link-block a:hover { background: #c7d9fc; }
+.recipe-link-block a:hover { background: #b8e0ca; }
 
 /* Plan day picker */
 .day-picker { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
@@ -374,7 +374,7 @@ main {
   border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 0.95rem;
-  background: #fdfaf7;
+  background: #f5fbff;
   cursor: pointer;
 }
 .search-row select:focus { outline: none; border-color: var(--primary); }
@@ -390,9 +390,9 @@ main {
   border-radius: 20px;
   margin-bottom: 8px;
 }
-.type-entree { background: #e3f2fd; color: #1565c0; }
-.type-side   { background: #e8f5e9; color: #2e7d32; }
-.type-snack  { background: #fff3e0; color: #e65100; }
+.type-entree { background: #dbeeff; color: #00538a; }
+.type-side   { background: #d4eedf; color: #1a6b3a; }
+.type-snack  { background: #d4f0ee; color: #1a6b65; }
 
 /* Responsive */
 @media (max-width: 700px) {
