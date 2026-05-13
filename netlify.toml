@@ -1,8 +1,13 @@
-[build]
+﻿[build]
   publish = "."
   functions = "netlify/functions"
 
 [[redirects]]
   from = "/api/meals"
   to = "/.netlify/functions/meals"
+  status = 200
+
+[[redirects]]
+  from = "/api/weekplans"
+  to = "/.netlify/functions/weekplans"
   status = 200

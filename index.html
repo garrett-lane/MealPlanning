@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -20,7 +20,11 @@
     <section class="card" id="planner-section">
       <div class="planner-header">
         <h2>Weekly Meal Plan</h2>
-        <button id="clear-plan-btn" class="clear-btn">🗑️ Clear Plan</button>
+        <div class="planner-header-btns">
+          <button id="save-plan-btn" class="save-plan-btn">💾 Save Plan</button>
+          <button id="history-btn" class="history-btn">📖 History</button>
+          <button id="clear-plan-btn" class="clear-btn">🗑️ Clear Plan</button>
+        </div>
       </div>
       <div id="week-grid">
         <div class="day-slot" data-day="Monday"><span class="day-label">Mon</span><div class="day-meals" id="day-Monday"></div></div>

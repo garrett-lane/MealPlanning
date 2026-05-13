@@ -1,4 +1,4 @@
-// ---- State ----
+﻿// ---- State ----
 let meals = JSON.parse(localStorage.getItem('meals') || '[]');
 let weekPlan = JSON.parse(localStorage.getItem('weekPlan') || '{}');
 
@@ -35,7 +35,7 @@ async function syncFromAirtable() {
         airtableId: r.id,
         name: f['Meal Name'] || '(Unnamed)',
         ingredients,
-        recipeUrl: f['recipe link'] || '',
+        recipeUrl: f['Recipe Link'] || '',
         tags: f['Meal Type'] ? [f['Meal Type']] : [],
         mealType: f['Meal Type'] || ''
       };
@@ -117,8 +117,11 @@ function renderWeekPlan() {
       const meal = meals.find(m => m.id === id);
       if (!meal) return '';
       return `<div class="planned-meal" title="${escHtml(meal.name)}">
-        <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(meal.name)}</span>
-        <button class="remove-planned" onclick="removePlanned('${day}', ${idx})" title="Remove">✕</button>
+        <span class="planned-meal-name" onclick="showIngredients('${meal.id}')">${escHtml(meal.name)}</span>
+        <div class="planned-meal-btns">
+          ${meal.recipeUrl ? `<a class="planned-recipe-btn" href="${escHtml(meal.recipeUrl)}" target="_blank" rel="noopener noreferrer" title="Open Recipe">🔗</a>` : ''}
+          <button class="remove-planned" onclick="removePlanned('${day}', ${idx})" title="Remove">✕</button>
+        </div>
       </div>`;
     }).join('');
   });
@@ -322,3 +325,96 @@ function escHtml(str) {
 renderTypeFilter();
 renderLibrary();
 renderWeekPlan();
+
+// ---- Week Plan History ----
+function getWeekLabel() {
+  const now = new Date();
+  const day = now.getDay();
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - (day === 0 ? 6 : day - 1));
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+  const fmt = d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  return `${fmt(monday)} – ${fmt(sunday)}, ${sunday.getFullYear()}`;
+}
+
+async function saveWeekPlan() {
+  const hasPlanned = DAYS.some(day => (weekPlan[day] || []).length > 0);
+  if (!hasPlanned) {
+    alert('Nothing in the plan to save!');
+    return;
+  }
+
+  const namedPlan = {};
+  DAYS.forEach(day => {
+    namedPlan[day] = (weekPlan[day] || []).map(id => {
+      const meal = meals.find(m => m.id === id);
+      return meal ? meal.name : id;
+    });
+  });
+
+  const btn = document.getElementById('save-plan-btn');
+  btn.textContent = 'Saving…';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://gtmealprep.netlify.app/api/weekplans', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        weekLabel: getWeekLabel(),
+        plan: namedPlan,
+        savedOn: new Date().toISOString().split('T')[0]
+      })
+    });
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      throw new Error(body?.error || `HTTP ${res.status}`);
+    }
+    btn.textContent = '✅ Saved!';
+    setTimeout(() => { btn.textContent = '💾 Save Plan'; btn.disabled = false; }, 2000);
+  } catch (err) {
+    alert(`Failed to save plan: ${err.message}`);
+    btn.textContent = '💾 Save Plan';
+    btn.disabled = false;
+  }
+}
+
+async function showPlanHistory() {
+  document.getElementById('detail-title').textContent = 'Plan History';
+  document.getElementById('detail-body').innerHTML = '<p style="color:var(--muted)">Loading…</p>';
+  document.getElementById('detail-overlay').classList.remove('hidden');
+
+  try {
+    const res = await fetch('https://gtmealprep.netlify.app/api/weekplans');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const { records } = await res.json();
+
+    if (!records.length) {
+      document.getElementById('detail-body').innerHTML = '<p style="color:var(--muted)">No saved plans yet.</p>';
+      return;
+    }
+
+    const html = records.map(r => {
+      const f = r.fields;
+      const rows = DAYS.filter(d => f[d]).map(d =>
+        `<div class="history-day">
+          <span class="history-day-label">${d.slice(0,3)}</span>
+          <span class="history-day-meals">${escHtml(f[d])}</span>
+        </div>`
+      ).join('');
+      return `<div class="history-entry">
+        <div class="history-week-label">${escHtml(f['Week Label'] || 'Untitled')}</div>
+        ${rows}
+      </div>`;
+    }).join('');
+
+    document.getElementById('detail-body').innerHTML = html;
+  } catch (err) {
+    document.getElementById('detail-body').innerHTML =
+      `<p style="color:var(--danger)">Failed to load history: ${escHtml(err.message)}</p>`;
+  }
+}
+
+document.getElementById('save-plan-btn').addEventListener('click', saveWeekPlan);
+document.getElementById('history-btn').addEventListener('click', showPlanHistory);
