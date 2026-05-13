@@ -1,4 +1,4 @@
-﻿// ---- State ----
+// ---- State ----
 let meals = JSON.parse(localStorage.getItem('meals') || '[]');
 let weekPlan = JSON.parse(localStorage.getItem('weekPlan') || '{}');
 
@@ -114,6 +114,12 @@ function renderWeekPlan() {
     const container = document.getElementById(`day-${day}`);
     const planned = weekPlan[day] || [];
     container.innerHTML = planned.map((id, idx) => {
+      if (id === '__leftovers__') {
+        return `<div class="planned-meal planned-leftovers" title="Leftovers">
+          <span class="planned-meal-name">🍱 Leftovers</span>
+          <button class="remove-planned" onclick="removePlanned('${day}', ${idx})" title="Remove">✕</button>
+        </div>`;
+      }
       const meal = meals.find(m => m.id === id);
       if (!meal) return '';
       return `<div class="planned-meal" title="${escHtml(meal.name)}">
@@ -321,7 +327,25 @@ function escHtml(str) {
     .replace(/"/g,'&quot;');
 }
 
+// ---- Leftovers ----
+function addLeftovers(day) {
+  weekPlan[day] = weekPlan[day] || [];
+  weekPlan[day].push('__leftovers__');
+  save();
+  renderWeekPlan();
+}
+
 // ---- Init ----
+document.querySelectorAll('.day-slot').forEach(slot => {
+  const day = slot.dataset.day;
+  const btn = document.createElement('button');
+  btn.className = 'leftovers-btn';
+  btn.title = 'Add leftovers';
+  btn.textContent = '🍱';
+  btn.onclick = () => addLeftovers(day);
+  slot.appendChild(btn);
+});
+
 renderTypeFilter();
 renderLibrary();
 renderWeekPlan();

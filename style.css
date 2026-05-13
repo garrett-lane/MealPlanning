@@ -1,4 +1,4 @@
-﻿/* ---- Reset & Base ---- */
+/* ---- Reset & Base ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -169,6 +169,24 @@ main {
   line-height: 1;
 }
 .planned-meal .remove-planned:hover { color: #fff; }
+.planned-leftovers {
+  background: #334155;
+  color: #94a3b8;
+}
+.leftovers-btn {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  background: none;
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  padding: 3px 0;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.leftovers-btn:hover { border-color: var(--primary); color: var(--primary); }
 
 /* ---- Search ---- */
 .search-row { margin-bottom: 14px; }
