@@ -2,17 +2,17 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --primary: #38bdf8;
-  --primary-dark: #0ea5e9;
-  --bg: #0f172a;
-  --card-bg: #1e293b;
-  --text: #e2e8f0;
-  --muted: #64748b;
-  --border: #334155;
-  --tag-bg: #164e3a;
-  --tag-color: #4ade80;
-  --danger: #f87171;
-  --success: #34d399;
+  --primary: #ffffe3;
+  --primary-dark: #cbcbcb;
+  --bg: #505050;
+  --card-bg: #5e5e5e;
+  --text: #ffffe3;
+  --muted: #cbcbcb;
+  --border: #6d8196;
+  --tag-bg: #484848;
+  --tag-color: #ffffe3;
+  --danger: #e07878;
+  --success: #90c490;
   --radius: 12px;
   --shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
@@ -26,18 +26,18 @@ body {
 
 /* ---- Header ---- */
 header {
-  background: #263548;
+  background: #6d8196;
   color: var(--text);
   padding: 24px 32px;
   text-align: center;
   border-bottom: 3px solid var(--primary);
 }
 header h1 { font-size: 2rem; font-weight: 700; color: var(--primary); }
-header p { font-size: 0.95rem; color: var(--muted); margin-top: 4px; }
+header p { font-size: 0.95rem; color: #dce6ee; margin-top: 4px; }
 
 /* ---- Main Layout ---- */
 main {
-  max-width: 960px;
+  max-width: 1400px;
   margin: 32px auto;
   padding: 0 16px;
   display: flex;
@@ -60,7 +60,6 @@ main {
   border-bottom: 2px solid var(--border);
   padding-bottom: 8px;
 }
-
 
 .secondary-btn {
   background: transparent;
@@ -103,18 +102,27 @@ main {
 /* ---- Weekly Planner ---- */
 #week-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 8px;
 }
 .day-slot {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 8px;
-  min-height: 100px;
-  background: #0f172a;
+  min-height: 110px;
+  max-height: 280px;
+  background: #484848;
   transition: background 0.2s;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
-.day-slot.drag-over { background: #d4eedf; border-color: var(--primary); }
+.day-meals {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.day-slot.drag-over { background: #6d8196; border-color: var(--primary); }
 .day-label {
   font-size: 0.8rem;
   font-weight: 700;
@@ -126,8 +134,8 @@ main {
   letter-spacing: 0.05em;
 }
 .planned-meal {
-  background: var(--primary);
-  color: #fff;
+  background: #6d8196;
+  color: #ffffe3;
   border-radius: 6px;
   padding: 4px 7px;
   font-size: 0.78rem;
@@ -144,6 +152,7 @@ main {
   white-space: nowrap;
   cursor: pointer;
   flex: 1;
+  min-width: 0;
 }
 .planned-meal-name:hover { text-decoration: underline; }
 .planned-meal-btns {
@@ -156,23 +165,25 @@ main {
   font-size: 0.8rem;
   line-height: 1;
   text-decoration: none;
-  opacity: 0.85;
+  opacity: 0.8;
 }
 .planned-recipe-btn:hover { opacity: 1; }
 .planned-meal .remove-planned {
   background: none;
   border: none;
-  color: rgba(255,255,255,0.8);
+  color: rgba(255,255,227,0.6);
   cursor: pointer;
   font-size: 0.9rem;
   padding: 0;
   line-height: 1;
 }
-.planned-meal .remove-planned:hover { color: #fff; }
+.planned-meal .remove-planned:hover { color: #ffffe3; }
 .planned-leftovers {
-  background: #334155;
-  color: #94a3b8;
+  background: #686868;
+  color: #cbcbcb;
 }
+.planned-leftovers .remove-planned { color: rgba(203,203,203,0.6); }
+.planned-leftovers .remove-planned:hover { color: #cbcbcb; }
 .leftovers-btn {
   display: block;
   width: 100%;
@@ -196,7 +207,7 @@ main {
   border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 0.95rem;
-  background: #0f172a;
+  background: #484848;
   color: var(--text);
 }
 .search-row input:focus { outline: none; border-color: var(--primary); }
@@ -212,17 +223,18 @@ main {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 16px;
-  background: #0f172a;
+  background: #484848;
   position: relative;
   transition: box-shadow 0.2s, transform 0.15s;
   cursor: grab;
 }
-.meal-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-2px); }
+.meal-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.3); transform: translateY(-2px); }
 .meal-card:active { cursor: grabbing; }
 
 .meal-card-title {
   font-size: 1rem;
   font-weight: 700;
+  color: #ffffff;
   margin-bottom: 6px;
   padding-right: 28px;
 }
@@ -243,17 +255,17 @@ main {
   padding: 5px 12px;
   border-radius: 6px;
   border: 1px solid var(--border);
-  background: #1e293b;
+  background: #5e5e5e;
   color: var(--text);
   cursor: pointer;
   transition: all 0.15s;
   font-weight: 500;
 }
-.meal-actions .btn-ingredients:hover { background: #eaf4ea; border-color: var(--success); color: #2e7d32; }
-.meal-actions .btn-recipe:hover { background: #e8f0fe; border-color: #4285f4; color: #1a56db; }
-.meal-actions .btn-plan:hover { background: var(--tag-bg); border-color: var(--primary); color: var(--primary-dark); }
+.meal-actions .btn-ingredients:hover { background: var(--primary); border-color: var(--primary); color: #484848; }
+.meal-actions .btn-recipe:hover { background: #6d8196; border-color: #6d8196; color: #ffffe3; }
+.meal-actions .btn-plan:hover { background: var(--border); border-color: var(--primary); color: var(--primary); }
 .meal-actions .btn-delete { margin-left: auto; }
-.meal-actions .btn-delete:hover { background: #fdecea; border-color: var(--danger); color: var(--danger); }
+.meal-actions .btn-delete:hover { background: #5a3030; border-color: var(--danger); color: var(--danger); }
 
 .no-meals {
   color: var(--muted);
@@ -266,21 +278,21 @@ main {
 /* ---- Modals ---- */
 #modal-overlay, #detail-overlay {
   position: fixed; inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0,0,0,0.55);
   display: flex; align-items: center; justify-content: center;
   z-index: 100;
 }
 .hidden { display: none !important; }
 
 #modal, #detail-modal {
-  background: #1e293b;
+  background: #5e5e5e;
   border-radius: var(--radius);
   width: 90%;
   max-width: 500px;
   max-height: 85vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
   overflow: hidden;
 }
 
@@ -290,11 +302,11 @@ main {
   justify-content: space-between;
   padding: 18px 24px;
   border-bottom: 1px solid var(--border);
-  background: #0f172a;
+  background: #484848;
 }
 #modal-header h2, #detail-header h2 {
   font-size: 1.15rem;
-  color: var(--primary-dark);
+  color: var(--primary);
 }
 
 #modal-close, #detail-close {
@@ -318,12 +330,12 @@ main {
 #modal-footer {
   padding: 14px 24px;
   border-top: 1px solid var(--border);
-  background: #0f172a;
+  background: #484848;
 }
 
 #copy-list-btn {
   background: var(--primary);
-  color: #fff;
+  color: #484848;
   border: none;
   padding: 9px 20px;
   border-radius: 8px;
@@ -370,8 +382,8 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #064e3b;
-  color: #34d399;
+  background: #6d8196;
+  color: #ffffe3;
   text-decoration: none;
   padding: 9px 16px;
   border-radius: 8px;
@@ -379,12 +391,12 @@ main {
   font-weight: 600;
   transition: background 0.15s;
 }
-.recipe-link-block a:hover { background: #065f46; }
+.recipe-link-block a:hover { background: #5a6e80; }
 
 /* Plan day picker */
 .day-picker { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .day-btn {
-  background: #0f172a;
+  background: #484848;
   color: var(--text);
   border: 2px solid var(--border);
   border-radius: 8px;
@@ -442,9 +454,9 @@ main {
   border-radius: 8px;
   margin-bottom: 10px;
 }
-.sync-loading { background: #2d2200; color: #fcd34d; }
-.sync-success { background: #064e3b; color: #34d399; }
-.sync-error   { background: #450a0a; color: #f87171; }
+.sync-loading { background: #5e5e5e; color: #ffffe3; border: 1px solid #6d8196; }
+.sync-success { background: #3a4a3a; color: #90c490; border: 1px solid #90c490; }
+.sync-error   { background: #5a3030; color: #e07878; }
 
 /* ---- Type filter ---- */
 .search-row {
@@ -456,7 +468,7 @@ main {
   border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 0.95rem;
-  background: #0f172a;
+  background: #484848;
   color: var(--text);
   cursor: pointer;
 }
@@ -473,9 +485,9 @@ main {
   border-radius: 20px;
   margin-bottom: 8px;
 }
-.type-entree, .type-entre { background: #0c2a4a; color: #38bdf8; }
-.type-side   { background: #064e3b; color: #34d399; }
-.type-snack  { background: #134e4a; color: #2dd4bf; }
+.type-entree, .type-entre { background: #484848; color: #ffffe3; border: 1px solid #6d8196; }
+.type-side   { background: #484848; color: #90c490; border: 1px solid #90c490; }
+.type-snack  { background: #484848; color: #cbcbcb; border: 1px solid #cbcbcb; }
 
 /* ---- Planner header buttons ---- */
 .planner-header-btns { display: flex; gap: 8px; align-items: center; }
@@ -513,7 +525,7 @@ main {
   border-radius: 10px;
   padding: 14px 16px;
   margin-bottom: 14px;
-  background: #0f172a;
+  background: #484848;
 }
 .history-week-label {
   font-size: 0.95rem;
@@ -550,12 +562,17 @@ footer a { color: var(--muted); text-decoration: none; }
 footer a:hover { color: var(--text); }
 
 /* Responsive */
-@media (max-width: 700px) {
-  #week-grid { grid-template-columns: repeat(4, 1fr); }
-
+@media (max-width: 900px) {
+  #week-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
-@media (max-width: 480px) {
-  #week-grid { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 600px) {
+  #week-grid { grid-template-columns: 1fr; }
+  .day-slot { max-height: none; flex-direction: row; align-items: flex-start; gap: 8px; }
+  .day-label { min-width: 40px; padding-top: 4px; text-align: left; }
+  .day-meals { flex: 1; display: flex; flex-wrap: wrap; gap: 4px; overflow: visible; }
+  .planned-meal { margin-bottom: 0; }
+  .leftovers-btn { width: auto; margin-top: 0; }
   header h1 { font-size: 1.4rem; }
   .search-row { flex-direction: column; }
+  .planner-header-btns { flex-wrap: wrap; }
 }

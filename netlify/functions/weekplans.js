@@ -71,19 +71,47 @@ exports.handler = async function(event) {
       const body = JSON.parse(event.body || '{}');
       const { weekLabel, plan, savedOn } = body;
 
-      const fields = { 'Week Label': weekLabel, 'Saved On': savedOn };
+      // Check if a record already exists for this week label
+      const searchUrl = new URL(`https://api.airtable.com/v0/${base}/${encodeURIComponent(TABLE)}`);
+      searchUrl.searchParams.set('filterByFormula', `{Week Label}="${weekLabel}"`);
+      searchUrl.searchParams.set('maxRecords', '1');
+
+      const searchRes = await fetch(searchUrl.toString(), {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (!searchRes.ok) {
+        const errBody = await searchRes.json().catch(() => ({}));
+        throw new Error(errBody?.error?.message || `Airtable returned HTTP ${searchRes.status}`);
+      }
+
+      const searchData = await searchRes.json();
+      const existing = searchData.records?.[0];
+
+      // Only include days that have meals — never overwrite a day with blank
+      const fields = {};
       DAYS.forEach(d => {
-        fields[d] = (plan[d] || []).join(', ');
+        const names = (plan[d] || []);
+        if (names.length > 0) fields[d] = names.join(', ');
       });
 
-      const res = await fetch(`https://api.airtable.com/v0/${base}/${encodeURIComponent(TABLE)}`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ fields })
-      });
+      let res;
+      if (existing) {
+        // PATCH: merge into existing record, skipping empty days
+        res = await fetch(`https://api.airtable.com/v0/${base}/${encodeURIComponent(TABLE)}/${existing.id}`, {
+          method: 'PATCH',
+          headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fields })
+        });
+      } else {
+        // POST: create new record
+        fields['Week Label'] = weekLabel;
+        fields['Saved On'] = savedOn;
+        res = await fetch(`https://api.airtable.com/v0/${base}/${encodeURIComponent(TABLE)}`, {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ fields })
+        });
+      }
 
       if (!res.ok) {
         const errBody = await res.json().catch(() => ({}));
