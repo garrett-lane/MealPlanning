@@ -17,6 +17,7 @@ function corsHeaders(origin) {
 
 const TABLE = 'Week Plans';
 const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const MEAL_TYPES = ['Breakfast','Lunch','Dinner'];
 
 exports.handler = async function(event) {
   const origin = event.headers?.origin || 'null';
@@ -90,8 +91,14 @@ exports.handler = async function(event) {
       // Only include days that have meals — never overwrite a day with blank
       const fields = {};
       DAYS.forEach(d => {
-        const names = (plan[d] || []);
-        if (names.length > 0) fields[d] = names.join(', ');
+        const dayPlan = plan[d] || {};
+        const lines = MEAL_TYPES
+          .map(t => {
+            const names = dayPlan[t] || [];
+            return names.length ? `${t}: ${names.join(', ')}` : null;
+          })
+          .filter(Boolean);
+        if (lines.length > 0) fields[d] = lines.join('\n');
       });
 
       let res;

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -27,13 +27,45 @@
         </div>
       </div>
       <div id="week-grid">
-        <div class="day-slot" data-day="Monday"><span class="day-label">Mon</span><div class="day-meals" id="day-Monday"></div></div>
-        <div class="day-slot" data-day="Tuesday"><span class="day-label">Tue</span><div class="day-meals" id="day-Tuesday"></div></div>
-        <div class="day-slot" data-day="Wednesday"><span class="day-label">Wed</span><div class="day-meals" id="day-Wednesday"></div></div>
-        <div class="day-slot" data-day="Thursday"><span class="day-label">Thu</span><div class="day-meals" id="day-Thursday"></div></div>
-        <div class="day-slot" data-day="Friday"><span class="day-label">Fri</span><div class="day-meals" id="day-Friday"></div></div>
-        <div class="day-slot" data-day="Saturday"><span class="day-label">Sat</span><div class="day-meals" id="day-Saturday"></div></div>
-        <div class="day-slot" data-day="Sunday"><span class="day-label">Sun</span><div class="day-meals" id="day-Sunday"></div></div>
+        <div class="week-corner"></div>
+        <div class="meal-col-header">Breakfast</div>
+        <div class="meal-col-header">Lunch</div>
+        <div class="meal-col-header">Dinner</div>
+
+        <div class="day-label-cell">Mon</div>
+        <div class="meal-cell" data-day="Monday" data-type="Breakfast" id="cell-Monday-Breakfast"></div>
+        <div class="meal-cell" data-day="Monday" data-type="Lunch" id="cell-Monday-Lunch"></div>
+        <div class="meal-cell" data-day="Monday" data-type="Dinner" id="cell-Monday-Dinner"></div>
+
+        <div class="day-label-cell">Tue</div>
+        <div class="meal-cell" data-day="Tuesday" data-type="Breakfast" id="cell-Tuesday-Breakfast"></div>
+        <div class="meal-cell" data-day="Tuesday" data-type="Lunch" id="cell-Tuesday-Lunch"></div>
+        <div class="meal-cell" data-day="Tuesday" data-type="Dinner" id="cell-Tuesday-Dinner"></div>
+
+        <div class="day-label-cell">Wed</div>
+        <div class="meal-cell" data-day="Wednesday" data-type="Breakfast" id="cell-Wednesday-Breakfast"></div>
+        <div class="meal-cell" data-day="Wednesday" data-type="Lunch" id="cell-Wednesday-Lunch"></div>
+        <div class="meal-cell" data-day="Wednesday" data-type="Dinner" id="cell-Wednesday-Dinner"></div>
+
+        <div class="day-label-cell">Thu</div>
+        <div class="meal-cell" data-day="Thursday" data-type="Breakfast" id="cell-Thursday-Breakfast"></div>
+        <div class="meal-cell" data-day="Thursday" data-type="Lunch" id="cell-Thursday-Lunch"></div>
+        <div class="meal-cell" data-day="Thursday" data-type="Dinner" id="cell-Thursday-Dinner"></div>
+
+        <div class="day-label-cell">Fri</div>
+        <div class="meal-cell" data-day="Friday" data-type="Breakfast" id="cell-Friday-Breakfast"></div>
+        <div class="meal-cell" data-day="Friday" data-type="Lunch" id="cell-Friday-Lunch"></div>
+        <div class="meal-cell" data-day="Friday" data-type="Dinner" id="cell-Friday-Dinner"></div>
+
+        <div class="day-label-cell">Sat</div>
+        <div class="meal-cell" data-day="Saturday" data-type="Breakfast" id="cell-Saturday-Breakfast"></div>
+        <div class="meal-cell" data-day="Saturday" data-type="Lunch" id="cell-Saturday-Lunch"></div>
+        <div class="meal-cell" data-day="Saturday" data-type="Dinner" id="cell-Saturday-Dinner"></div>
+
+        <div class="day-label-cell">Sun</div>
+        <div class="meal-cell" data-day="Sunday" data-type="Breakfast" id="cell-Sunday-Breakfast"></div>
+        <div class="meal-cell" data-day="Sunday" data-type="Lunch" id="cell-Sunday-Lunch"></div>
+        <div class="meal-cell" data-day="Sunday" data-type="Dinner" id="cell-Sunday-Dinner"></div>
       </div>
       <button id="generate-list-btn" class="secondary-btn">📋 Generate Shopping List</button>
     </section>
@@ -73,7 +105,7 @@
     </div>
   </div>
 
-  <!-- Ingredients / Recipe Detail Modal -->
+  <!-- Ingredients / Recipe / Plan Picker Modal -->
   <div id="detail-overlay" class="hidden">
     <div id="detail-modal">
       <div id="detail-header">
